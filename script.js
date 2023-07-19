@@ -1,36 +1,64 @@
 function getComputerChoice(){
-    let choice = ["Rock", "Paper", "Scissors"]
+    let choice = ["rock", "paper", "scissors"]
     return choice[Math.floor(Math.random() * choice.length)]
 }
 function getPlayerChoice(){
-    return prompt("Choose rock, paper, scissors.").toLowerCase
+    return prompt("Choose rock, paper, scissors.").toLowerCase()
 }
-function runGame(playerChoice,computerChoice){
-    let win = console.log(`You win, ${playerChoice} beats ${computerChoice}`)
-    let lose = console.log(`You lose, ${computerChoice} beats ${playerChoice}`)
-
+function playRound(playerChoice,computerChoice){
     if(playerChoice == "rock" && computerChoice == "paper"){
 
-        console.log(lose)
+        return -1
 
     }else if (playerChoice == "paper" && computerChoice == "scissors"){
 
-        console.log(lose)
+        return -1
 
     }else if (playerChoice == "scissors" && computerChoice == "rock"){
 
-        console.log(lose)
+        return -1
 
     }else if(computerChoice == "rock" && playerChoice == "paper"){
 
-        console.log(win)
+        return 1
 
     }else if (computerChoice == "paper" && playerChoice == "scissors"){
 
-        console.log(win)
+        return 1
 
     }else if (computerChoice == "scissors" && playerChoice == "rock"){
 
-        console.log(win)
-    }
+        return 1
+    }else return 0;
 }
+function game(){
+    let i = 0;
+    let playerScore = 0, computerScore = 0;
+    while (i<5){
+        i++
+        
+        let playerChoice = getPlayerChoice()
+        let computerChoice = getComputerChoice()
+        while (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors") playerChoice = getPlayerChoice();
+
+        let outcome = playRound(playerChoice,computerChoice)
+
+        let win = "You win, " + playerChoice + " beats " + computerChoice
+        let lose = "You lose, " + computerChoice + " beats " + playerChoice
+        let draw = "It's a draw, " + playerChoice + " and " + computerChoice 
+        
+        if (outcome > 0){
+            playerScore++
+            console.log(win + " | Score = " + playerScore + " : " + computerScore)
+        }else if (outcome < 0){
+            computerScore++
+            console.log(lose + " | Score = " + playerScore + " : " + computerScore)
+        }else console.log(draw + " | Score = " + playerScore + " : " + computerScore);
+    }
+
+    if (playerScore>computerScore) return "You win | Score = "  + playerScore + " : " + computerScore;
+    else if (playerScore<computerScore) "You lose | Score = "  + playerScore + " : " + computerScore;
+    else return "it's a draw | Score = "  + playerScore + " : " + computerScore;
+}
+
+console.log(game())
