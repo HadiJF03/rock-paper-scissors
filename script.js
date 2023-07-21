@@ -2,9 +2,6 @@ function getComputerChoice(){
     let choice = ["rock", "paper", "scissors"]
     return choice[Math.floor(Math.random() * choice.length)]
 }
-function getPlayerChoice(){
-    return prompt("Choose rock, paper, scissors.").toLowerCase()
-}
 function playRound(playerChoice,computerChoice){
     if(playerChoice == "rock" && computerChoice == "paper"){
 
@@ -31,34 +28,30 @@ function playRound(playerChoice,computerChoice){
         return 1
     }else return 0;
 }
-function game(){
-    let i = 0;
-    let playerScore = 0, computerScore = 0;
-    while (i<5){
-        i++
-        
-        let playerChoice = getPlayerChoice()
-        let computerChoice = getComputerChoice()
-        while (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors") playerChoice = getPlayerChoice();
+function game(playerChoice){
+    let computerChoice = getComputerChoice()
+    let outcome = playRound(playerChoice,computerChoice)
+    console.log(computerScore);
+    if (outcome > 0){
+        playerScore.textContent = parseInt(playerScore.innerHTML)+1;
+        result.textContent = "You win, " + playerChoice + " beats " + computerChoice;
+    }else if (outcome < 0){
+        computerScore.textContent = parseInt(computerScore.innerHTML)+1;
+        result.textContent = "You lose, " + computerChoice + " beats " + playerChoice;
+    }else result.textContent = "It's a draw, " + playerChoice + " and " + computerChoice ;
 
-        let outcome = playRound(playerChoice,computerChoice)
-
-        let win = "You win, " + playerChoice + " beats " + computerChoice
-        let lose = "You lose, " + computerChoice + " beats " + playerChoice
-        let draw = "It's a draw, " + playerChoice + " and " + computerChoice 
-        
-        if (outcome > 0){
-            playerScore++
-            console.log(win + " | Score = " + playerScore + " : " + computerScore)
-        }else if (outcome < 0){
-            computerScore++
-            console.log(lose + " | Score = " + playerScore + " : " + computerScore)
-        }else console.log(draw + " | Score = " + playerScore + " : " + computerScore);
-    }
-
-    if (playerScore>computerScore) return "You win | Score = "  + playerScore + " : " + computerScore;
-    else if (playerScore<computerScore) "You lose | Score = "  + playerScore + " : " + computerScore;
-    else return "it's a draw | Score = "  + playerScore + " : " + computerScore;
+    if(parseInt(playerScore.innerHTML)== 5) result.textContent = "You win! (First to five)"
+    else if (parseInt(computerScore.innerHTML)== 5) result.textContent = "You Lose!!!! (First to five)"
 }
 
-console.log(game())
+function getPlayerChoice(e){
+    game(e.srcElement.id);
+    
+}
+const result = document.querySelector(".result");
+const playerScore = document.querySelector(".left");
+const computerScore = document.querySelector(".right");
+const buttons = document.querySelectorAll(".option");
+buttons.forEach(button => button.addEventListener("click", getPlayerChoice))
+
+
