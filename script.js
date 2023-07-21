@@ -31,7 +31,6 @@ function playRound(playerChoice,computerChoice){
 function game(playerChoice){
     let computerChoice = getComputerChoice()
     let outcome = playRound(playerChoice,computerChoice)
-    console.log(computerScore);
     if (outcome > 0){
         playerScore.textContent = parseInt(playerScore.innerHTML)+1;
         result.textContent = "You win, " + playerChoice + " beats " + computerChoice;
